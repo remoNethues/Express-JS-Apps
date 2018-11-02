@@ -1,9 +1,9 @@
-//Function imports commands
-var express=require('express');
-// var client=require().MongoDBClient
+var express = require('express');
 
-var app=express();
-app.get('/',function(req,res){
-    res.send("hello hell he");
+var app = express();
+app.get('/', function (req, res) {
+
+    res.send("Hello world!");
+
 });
 app.listen(3000);
