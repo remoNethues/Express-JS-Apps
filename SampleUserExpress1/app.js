@@ -1,9 +1,9 @@
 var express = require('express');
-
 var app = express();
-app.get('/', function (req, res) {
+var things = require('./route');
+console.log("router imported");
+console.log(things);
 
-    res.send("Hello world!");
 
-});
+app.use('/things', things);
 app.listen(3000);
