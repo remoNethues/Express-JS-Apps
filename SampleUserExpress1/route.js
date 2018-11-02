@@ -5,9 +5,8 @@ var dbconnect = require('./dbConnection');
 
 //
 router.get('/', function (req, res) {
-    dbconnect.Connect();
+    dbconnect.Connect(res);
     console.log("Inside get after db call");
-    res.send("From GET");
 });
 
 
