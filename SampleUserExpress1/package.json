@@ -1,0 +1,17 @@
+{
+  "name": "sampleuserexpress1",
+  "version": "1.0.0",
+  "description": "Get user Datails From the database using mongoDb and Express js ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Express",
+    "NodeJs",
+    "MeanStack",
+    "JavaScript"
+  ],
+  "author": "Rahul Kumar",
+  "license": "ISC"
+}
