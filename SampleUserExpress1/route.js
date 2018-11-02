@@ -3,7 +3,7 @@ var router = express.Router();
 var dbconnect = require('./dbConnection');
 
 
-
+//
 router.get('/', function (req, res) {
     dbconnect.Connect();
     console.log("Inside get after db call");
