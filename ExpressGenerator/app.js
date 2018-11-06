@@ -1,41 +1,62 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const crudRoutes = require('./routes/crud');
 
 var app = express();
 
+//initializing the databse 
+mongoose.connect('mongodb://localhost:27017/CrudDb', { useNewUrlParser: true });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'hbs');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({}));
+// app.use(cookieParser());
+// app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+//CORSE error 
+app.use((req, res, next) => {
+  res.header(
+    "Acess-Control-Allow-Headers",
+    "Origin, X-Requested-With,Content-Type,Accept,Authorization"
+  );
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH');
+    return res.status(200).json({});
+  }
+  next();
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+//Routes For the project
+app.use('/crud', crudRoutes);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+
+//Error handling if 
+app.use((req, res, next) => {
+  const error = new Error('Not Found');
+  error.status = 404;
+  next(error);
+});
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({message: error.message});
+  // res.render('error');
 });
 
+//Exports
 module.exports = app;
+
+
+
+
+
+
+
+
+

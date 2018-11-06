@@ -1,0 +1,41 @@
+
+    <h1>{{title}}</h1>
+    <p>Welcome to {{title}}</p>
+    
+    <div id="form">
+        <form action="http://localhost:3000/users" method="POST">
+            <input type="text" placeholder="Name" id="propName" value=""><br>
+            <input type="text" placeholder="Age" id="propAge" value=""><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div id="displayTable">
+        <table>
+            <thead>
+                <th id="propId">Id</th>
+                <th id="propName">Name</th>
+                <th id="propAge">Age</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="propId">_id</td>
+                    <td id="propName">name</td>
+                    <td id="propAge">age</td>
+                    <td>
+                        <button type="submit">Delete</button>
+                    </td>
+                </tr>
+                {{#each user}}
+                <tr>
+                    <td id="propId">{{_id}}</td>
+                    <td id="propName">{{name}}</td>
+                    <td id="propAge">{{age}}</td>
+                    <td>
+                        <button type="submit" formaction="http://localhost:3000/users/{{_id}}" formmethod="DELETE">Delete</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+

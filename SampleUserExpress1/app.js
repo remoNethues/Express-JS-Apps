@@ -1,7 +1,8 @@
 var express = require('express');
+var mongoose=require('mongoose');
 var app = express();
+
 var things = require('./route');
-console.log("router imported");
 console.log(things);
 
 
