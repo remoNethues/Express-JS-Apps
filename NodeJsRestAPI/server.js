@@ -2,13 +2,13 @@ const express=require('express');
 const bodyParser=require('body-parser');
 const mongoose=require('mongoose');
 const User=require('./Model/userModel');
-const path=require('path');
+// const path=require('path');
 const app=express();
 
 // view engine setup
-app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/' }));
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/' }));
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'hbs');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json({}));
@@ -28,7 +28,7 @@ app.get('/users',(req,res,err)=>{
             console.log(err);
         }
         // res.json(user);
-        res.render('./Views/index',{user:user});
+        res.json(user);
     });
 });
 
@@ -58,7 +58,7 @@ app.post('/users',(req,res,err)=>{
 app.put('/users/:id',(req,res,err)=>{
     if(err) console.log(err);
     User.findById(req.params.id,(err,user)=>{
-        user.update(req.body,(err,user)=>{
+        user.updateOne(req.body,(err,user)=>{
             if(err){
                 console.log(err);
             }
